@@ -1,0 +1,27 @@
+import math
+
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        product = 1
+        zero_key = None
+        total_zeroes = 0
+
+        for key, num in enumerate(nums):
+            if num == 0:
+                total_zeroes += 1
+                zero_key = key
+            else:
+                product = num * product
+
+        for key, num in enumerate(nums):
+            if total_zeroes == 0:
+                nums[key] = product // num
+            elif total_zeroes == 1:
+                if key == zero_key:
+                    nums[zero_key] = product
+                else:
+                    nums[key] = 0
+            else:
+                nums[key] = 0
+
+        return nums
